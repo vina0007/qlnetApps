@@ -5,6 +5,8 @@ using System.Text;
 
 namespace qlnetMBS
 {
+    using QLNet;
+
     class Program
     {
         static void Main(string[] args)
@@ -12,21 +14,19 @@ namespace qlnetMBS
             double wac;
             int wala;
             int wam;
-            DateTime factorDate;
+            Date factorDate;
             double factor;
-            double originalFace;
+            //double originalFace;
             double currentFace;
             int statedDelay;
             double netCoupon;
             string secType;
-            DateTime settleDate;
+            Date settleDate;
 
             double yield_be;
-            double price;
+            //double price;
 
-            string prepaymodel;
-
-
+            IPrepayModel iPrepayModel;
 
         }
     }
