@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qlnetMBS", "qlnetMBS\qlnetMBS.csproj", "{7892A0A3-CC2D-4255-BBE7-5678366A31A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLNet", "..\..\qlnet\QLNet\QLNet.csproj", "{F6E762BD-DCDF-4CA0-ABAD-CB21C7D03BEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLNet", "..\qlnet\QLNet\QLNet.csproj", "{F6E762BD-DCDF-4CA0-ABAD-CB21C7D03BEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
