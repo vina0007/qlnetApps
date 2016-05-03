@@ -1,0 +1,3 @@
+[submodule "qlnet"]
+	path = qlnet
+	url = https://github.com/amaggiulli/qlnet.git
