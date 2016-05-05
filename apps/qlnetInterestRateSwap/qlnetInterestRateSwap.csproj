@@ -47,7 +47,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\qlnet\QLNet\QLNet.csproj">
+    <ProjectReference Include="..\..\qlnet\QLNet\QLNet.csproj">
       <Project>{F6E762BD-DCDF-4CA0-ABAD-CB21C7D03BEC}</Project>
       <Name>QLNet</Name>
     </ProjectReference>

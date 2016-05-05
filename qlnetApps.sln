@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qlnetMBS", "apps\qlnetMBS\q
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QLNet", "qlnet\QLNet\QLNet.csproj", "{F6E762BD-DCDF-4CA0-ABAD-CB21C7D03BEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qlnetInterestRateSwap", "qlnetInterestRateSwap\qlnetInterestRateSwap.csproj", "{FCCDF608-FFBA-455F-910A-3F4D6BD5055E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qlnetInterestRateSwap", "apps\qlnetInterestRateSwap\qlnetInterestRateSwap.csproj", "{FCCDF608-FFBA-455F-910A-3F4D6BD5055E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
