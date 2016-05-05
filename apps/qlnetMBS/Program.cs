@@ -13,13 +13,15 @@ namespace qlnetMBS
         {
             /*
              * TODO:
-             *  1. Add delay
-             *  2. Add SecType enum PT, PO, IO
-             *  3. WAC vs Net Coupon (meanings are reversed)
-             *  4. replace cash flows with expected cash flows to get the correct price 
+             *  FIXES
+             *      1. WAC vs Net Coupon (meanings are reversed, names are bad)
+             *      2. CashFlows needs to be replaced with Expected CashFlows to get the correct price
+             *  NEW IMPLEMENTATION     
+             *      1. Add delay
+             *      2. Add SecType enum PT, PO, IO
              */
 
-            Date referenceDate = new Date(12, 11, 2015);
+            Date referenceDate = new Date(16, 11, 2015);
             Settings.setEvaluationDate(referenceDate);
             int settlementDays = 0;
             Calendar calendar = new TARGET();
@@ -29,27 +31,27 @@ namespace qlnetMBS
             BusinessDayConvention paymentConvention = BusinessDayConvention.Unadjusted;
 
 
-            double wac = 0.035;
-            int wam = 354;
+            double wac = 0.03875;
+            int wam = 357;
             int wala = origTerm - wam;
-            Date factorDate = new Date(1, 11, 2015);
+            Date factorDate = new Date(1, 12, 2015);
             Date issueDate = calendar.advance(factorDate, -wala, TimeUnit.Months, BusinessDayConvention.Unadjusted);
             double factor = 1.0;
             double currentFace = 1000000;
             double originalFace = currentFace / factor;
-            int statedDelay = 0; //54;
-            double netCoupon = 0.035;
-            string secType;
-            Date settleDate;
+            int statedDelay = 30; //54;
+            double netCoupon = 0.030;
+            string secType = "PT";
+            Date settleDate = referenceDate;
 
-            double yield_be = 0.035;
+            double yield_be = 0.0270;
             //double price;
             
-            double cpr = 0.07;
-            double psa = 1;
+            
+            double speed = 0.08;
 
-            IPrepayModel constantcpr = new ConstantCPR(cpr);
-            IPrepayModel psacurve = new PSACurve(factorDate, psa);
+            IPrepayModel prepaymodel = new ConstantCPR(speed);
+            //IPrepayModel prepaymodel = new PSACurve(factorDate, speed);
 
             MBSFixedRateBond mbs = new MBSFixedRateBond(
                 settlementDays, 
@@ -62,7 +64,7 @@ namespace qlnetMBS
                 wac,
                 netCoupon,
                 accrualDayCounter,
-                psacurve,
+                prepaymodel,
                 paymentConvention,
                 issueDate);
 
@@ -72,11 +74,25 @@ namespace qlnetMBS
 
             mbs.setPricingEngine(discountingBondEngine);
 
-            double cp = mbs.cleanPrice();
+            // display results
+            Console.WriteLine("WAC         : {0:F5}", wac);
+            Console.WriteLine("WALA        : {0}", wala);
+            Console.WriteLine("WAM         : {0}", wam);
+            Console.WriteLine("Factor Date : {0}", factorDate.ToShortDateString());
+            Console.WriteLine("Factor      : {0:F10}", factor);
+            Console.WriteLine("Orig Face   : {0:N}", originalFace);
+            Console.WriteLine("Curr Face   : {0:N}", currentFace);
+            Console.WriteLine("Stated Delay: {0}", statedDelay);
+            Console.WriteLine("Net Coupon  : {0:F3}", netCoupon);
+            Console.WriteLine("Sec Type    : {0}", secType);
+            Console.WriteLine("Settle Date : {0}", settleDate.ToShortDateString());
+            Console.WriteLine("Model Type  : {0}", prepaymodel.GetType().ToString());
+            Console.WriteLine("Model Speed : {0:F3}", speed);
+            Console.WriteLine("Yield       : {0:F5}", yield_be);
 
-            Console.WriteLine("clean price: {0:F6}", mbs.cleanPrice());
-            Console.WriteLine("dirty price: {0:F6}", mbs.dirtyPrice());
-            Console.WriteLine("accrued int: {0:F6}", mbs.accruedAmount());
+            Console.WriteLine("Clean Price : {0:F6}", mbs.cleanPrice());
+            Console.WriteLine("Dirty Price : {0:F6}", mbs.dirtyPrice());
+            Console.WriteLine("Accrued     : {0:F6}", mbs.accruedAmount());
 
             // month, factor, pay date, ending prin, interest, reg principal, prepaid principal, total principal, net flow, cpr, smm, wala, wam, p&i payment, i payment, beg balance, days, discount, pv
             double ebal = currentFace;
