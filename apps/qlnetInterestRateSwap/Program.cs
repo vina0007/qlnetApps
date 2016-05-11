@@ -117,6 +117,21 @@ namespace qlnetInterestRateSwap
             Console.WriteLine("As Bonds Market Value (no acc): {0:N}", asBondsMarketValueNoAcc);
             Console.WriteLine("As Bonds Accrued Interest     : {0:N}", asBondsAccruedInterest);
 
+            Date rollDate = new Date(1, Month.Nov, 2015);
+            double bondFixedCash = 0;
+            foreach (CashFlow cf in fixedBond.cashflows())
+            {
+                if (cf.date() > rollDate & cf.date() <= _marketDate)
+                    bondFixedCash += cf.amount();
+            }
+            double bondFloatCash = 0;
+            foreach (CashFlow cf in floatBond.cashflows())
+            {
+                if (cf.date() > rollDate & cf.date() <= _marketDate)
+                    bondFloatCash += cf.amount();
+            }
+            double asBondsCash = w * (bondFixedCash - bondFloatCash);
+            Console.WriteLine("As Bonds Settled Cash         : {0:N}", asBondsCash);
         }
     }
 }
